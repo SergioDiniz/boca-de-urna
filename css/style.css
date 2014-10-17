@@ -17,11 +17,14 @@ body{
     margin: 0;
     padding: 0;
     background-color: #fafafa;
-    font-family: "open-sans.light";
+    font-family: "open-sans.light", sans-serif;
+    
     
     font-size: 17px;
     text-align: justify;
 }
+
+
 
 .conteiner {
     width: 1000px;
@@ -187,6 +190,7 @@ a[id="github"]{
 
 .barra-progresso{
     background-image:  none;    
+    background-color: #16A085;
 }
 
 table tr td{
@@ -324,3 +328,41 @@ table tr th:nth-child(2){
 }
 
 /* FIM GITHUB */
+
+
+
+
+/*
+*
+*        CSS PAGINA DE VOTACAO 
+*
+*/
+.pagina-votacao{
+    padding-top: 130px;
+}
+
+
+.pagina-votacao .sub-titulo{
+    text-align: center;
+}
+
+
+.form-votacao{
+    padding-top: 100px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+
+/*editando proprioedades do campo onde sera digitado o numero*/
+.form-votacao input[type="number"]{
+    height: 70px;
+    width: 330px;
+    font-size: 50px;
+}
+
+/*editanto propriedades do botao de votacao*/
+.botao-votar{
+    padding-top: 10px;
+    text-align: right;    
+}
