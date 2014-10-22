@@ -19,7 +19,6 @@ public class GerenciadorUsuario {
 
     public void addUsuario(String email) throws NoSuchAlgorithmException, UnsupportedEncodingException{
         Usuario usuario = new Usuario();
-        usuario.setEmail(email);
         usuario.setToken(Token.hashMDK5(email));
         usuario.setStatus(false);
         
@@ -28,8 +27,8 @@ public class GerenciadorUsuario {
         usuer.persisteUsuario(usuario);
     }
     
-    public Usuario buscarUsuairo(String email, String token) throws SQLException{
+    public Usuario buscarUsuairo(String email) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
         UsuarioDaoIT usuario = new UsuarioDao();
-        return usuario.buscarUsuario(email, token);
+        return usuario.buscarUsuario(Token.hashMDK5(email));
     }
 }

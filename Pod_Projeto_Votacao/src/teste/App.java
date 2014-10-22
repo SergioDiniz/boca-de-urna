@@ -15,10 +15,16 @@ public class App {
     public static void main(String [] args) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{
         
         GerenciadorUsuario gerenciador = new GerenciadorUsuario();
-        Usuario usuario = new Usuario();
-        usuario = gerenciador.buscarUsuairo("fatinha.sg@HOTMAIL.com", "84fb52b7f25005ee3d0e6e8d09b2a4d6");
+        //gerenciador.addUsuario("fatinha.sg@hotmail.com");
         
-        System.out.println("Usuario: " +usuario.getEmail());
-        System.out.println("Token: " +usuario.getToken());
+        
+        Usuario usuario = new Usuario();
+        usuario = gerenciador.buscarUsuairo("fatinha.sg@hotmail.com");
+        
+        if(usuario != null){
+            System.out.println("Token: " +usuario.getToken());
+        }else{
+            System.out.println("Usuario Invalido! ");
+        }
      }
 }

@@ -1,6 +1,5 @@
 package servlets;
 
-import classes.Usuario;
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import gerenciador.*;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,7 +31,7 @@ public class CadastraUsuario extends HttpServlet{
         
         try {
             gerenciador.addUsuario(email);
-            response.sendRedirect("paginaInicial.jsp");
+            response.sendRedirect("login.html");
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(CadastraUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -11,6 +11,6 @@ public interface UsuarioDaoIT {
 
     public void persisteUsuario(Usuario usuario);
     
-    public Usuario buscarUsuario(String email, String token);
+    public Usuario buscarUsuario(String token);
     
 }

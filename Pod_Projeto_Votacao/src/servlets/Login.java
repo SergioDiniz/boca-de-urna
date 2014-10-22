@@ -3,6 +3,8 @@ package servlets;
 import classes.Usuario;
 import gerenciador.GerenciadorUsuario;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,14 +26,14 @@ public class Login extends HttpServlet{
     }
     
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, UnsupportedEncodingException{
         
         GerenciadorUsuario gerenciador = new GerenciadorUsuario();
         Usuario usuario = new Usuario();
         
         try {
-            usuario = gerenciador.buscarUsuairo(request.getParameter("email"), request.getParameter("token"));
-        } catch (SQLException ex) {
+            usuario = gerenciador.buscarUsuairo(request.getParameter("email"));
+        } catch (SQLException | NoSuchAlgorithmException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         
