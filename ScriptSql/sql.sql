@@ -9,13 +9,13 @@
 
 create table Usuario(
 	id serial not null,
-	email varchar(150) unique , 
 	token varchar(256) unique,
 	status boolean,
 	constraint pk_usuario primary key(id)
 );
 
 ALTER TABLE usuario ADD COLUMN token varchar;
+DELETE FROM USUARIO
 
 insert into candidato(nome, numero) values ('Cassio Cunha Lima', 45);
 insert into candidato(nome, numero) values ('Ricardo Coutinho', 40);
