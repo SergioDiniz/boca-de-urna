@@ -40,9 +40,7 @@ public class Servidor {
         }
         
         User user = (User) ConvertUser.XmlObj(temp.toByteArray());
-        GerenciadorUsuario gerenciador = new GerenciadorUsuario();
-        gerenciador.addUsuario(user.getEmail());
-        /*
+        
         GerenciadorUsuario gerenciador = new GerenciadorUsuario();
         user = gerenciador.buscarUsuairo(user.getEmail());
         
@@ -53,11 +51,11 @@ public class Servidor {
             System.out.println("Email: " +user.getEmail());
         }
         
-        System.out.println(temp.toString().toString());
-        *//*
-        socket.getOutputStream().write(ConvertUser.ObjXml(user));
+        System.out.println(temp.toString());
+        
+        socket.getOutputStream().write("Dados Recebidos!".getBytes());
+        socket.getOutputStream().flush();
         socket.getOutputStream().close();
-        */
         socket.close();
         server.close();
     }

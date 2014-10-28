@@ -50,16 +50,15 @@ public class Login extends HttpServlet{
         
         socket.getOutputStream().write(dados);
         socket.getOutputStream().flush();
-        /*
+        
         InputStream input = socket.getInputStream();
+        response.getWriter().print(input);
+        
         ByteArrayOutputStream temp = new ByteArrayOutputStream();
         byte[] b = new byte[1];
-        
-        input.read(b);
-        temp.write(b);
-        
-        while(input.read(dados) != -1){
-            temp.write(dados);
+        /*
+        while(input.read(b) != -1){
+            temp.write(b);
         }
         
         response.getWriter().print(temp);
@@ -77,6 +76,5 @@ public class Login extends HttpServlet{
         
         socket.getOutputStream().close();
         socket.close();
-        
     }
 }
