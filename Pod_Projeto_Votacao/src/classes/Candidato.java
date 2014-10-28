@@ -7,7 +7,6 @@ package classes;
 
 public class Candidato {
 
-    private int id;
     private String nome;
     private int numero;
     private int qtdVotos;
@@ -16,21 +15,13 @@ public class Candidato {
     
     }
     
-    public Candidato(int id, String nome, int numero, int qtdVotos){
-        this.id = id;
+    public Candidato(String nome, int numero, int qtdVotos){
         this.nome = nome;
         this.numero = numero;
         this.qtdVotos = qtdVotos;
     }
 
-    public int getId(){
-        return id;
-    }
-    
-    public void setId(int id){
-        this.id = id;
-    }
-    
+   
     public String getNome() {
         return nome;
     }

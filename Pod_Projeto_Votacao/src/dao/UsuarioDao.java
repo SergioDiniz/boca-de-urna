@@ -1,7 +1,7 @@
 package dao;
 
 import classes.Token;
-import classes.Usuario;
+import classes.User;
 import conexaoBanco.ConnectionDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,13 +24,14 @@ public class UsuarioDao implements UsuarioDaoIT {
     }
     
     @Override
-    public void persisteUsuario(Usuario usuario) {
-       String sql = "insert into Usuario(token, status) values(?, ?)";
+    public void persisteUsuario(User usuario) {
+       String sql = "insert into Usuario(email, token, status) values(?, ?, ?)";
        
         try {
             PreparedStatement stat = this.conn.prepareCall(sql);
-            stat.setString(1, usuario.getToken());
-            stat.setBoolean(2, usuario.getStatus());
+            stat.setString(1, usuario.getEmail());
+            stat.setString(2, usuario.getToken());
+            stat.setString(3, usuario.getStatus());
             
             stat.execute();
             stat.close();
@@ -40,8 +41,8 @@ public class UsuarioDao implements UsuarioDaoIT {
     }
     
     @Override
-    public Usuario buscarUsuario(String token){
-        Usuario usuario = new Usuario();
+    public User buscarUsuario(String token){
+        User usuario = new User();
         String sql = "select * from usuario where token = ?";
         
         try {
@@ -51,9 +52,11 @@ public class UsuarioDao implements UsuarioDaoIT {
             ResultSet rs = stat.executeQuery();
             
             if(rs.next() == true){
-                usuario.setId(rs.getInt(1));
+                
+                usuario.setEmail(rs.getString(1));
                 usuario.setToken(rs.getString(2));
-                usuario.setStatus(rs.getBoolean(3));
+                usuario.setStatus(rs.getString(3));
+                
             }else{
                 usuario = null;
             }

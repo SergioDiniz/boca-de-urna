@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface CandidatoDaoIT {
 
-    public void atualizaVoto(Candidato candidato);
+    public void atualizaVoto(int numero);
     
     public ArrayList<Candidato> buscarCandidato();
     

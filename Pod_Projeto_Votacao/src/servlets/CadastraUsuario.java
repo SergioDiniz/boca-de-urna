@@ -1,14 +1,16 @@
 package servlets;
 
+import classes.User;
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import gerenciador.*;
 import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
+import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.bind.JAXBException;
+import servidor.ConvertUser;
 
 /**
  *
@@ -26,14 +28,26 @@ public class CadastraUsuario extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, 
             UnsupportedEncodingException{
         
+        Socket socket = new Socket("localhost", 10001);
+        
         String email = request.getParameter("email");
-        GerenciadorUsuario gerenciador = new GerenciadorUsuario();
+        
+        User user = new User();
+        user.setEmail(email);
+        
+        byte[] dados = null;
         
         try {
-            gerenciador.addUsuario(email);
-            response.sendRedirect("login.html");
-        } catch (NoSuchAlgorithmException ex) {
+            dados = ConvertUser.ObjXml(user);
+            response.sendRedirect("index.jsp");
+        } catch (JAXBException ex) {
             Logger.getLogger(CadastraUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        socket.getOutputStream().write(dados);
+        socket.getOutputStream().flush();
+        socket.getOutputStream().close();
+        socket.close();
+        
     }
 }

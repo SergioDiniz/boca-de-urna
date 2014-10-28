@@ -1,6 +1,6 @@
 package dao;
 
-import classes.Usuario;
+import classes.User;
 
 /**
  *
@@ -9,8 +9,8 @@ import classes.Usuario;
 
 public interface UsuarioDaoIT {
 
-    public void persisteUsuario(Usuario usuario);
+    public void persisteUsuario(User usuario);
     
-    public Usuario buscarUsuario(String token);
+    public User buscarUsuario(String token);
     
 }

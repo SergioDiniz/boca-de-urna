@@ -13,14 +13,14 @@ import java.util.ArrayList;
 
 public class GerenciadorCandidato {
 
-    public void computaVoto(Candidato candidato) throws SQLException{
+    public void computaVoto(int numero) throws SQLException{
         CandidatoDaoIT cand = new CandidatoDao();
-        cand.atualizaVoto(candidato);
+        cand.atualizaVoto(numero);
     }
     
-    public Candidato buscarCandidato(int id) throws SQLException{
+    public Candidato buscarCandidato(int numero) throws SQLException{
         CandidatoDaoIT cand = new CandidatoDao();
-        return cand.buscarCandidato(id);
+        return cand.buscarCandidato(numero);
     }
     
     public ArrayList<Candidato> candidatos() throws SQLException{

@@ -23,12 +23,12 @@ public class CandidatoDao implements CandidatoDaoIT{
     }
     
     @Override
-    public void atualizaVoto(Candidato candidato){
-        String sql = "update candidato set qtd_voto = qtd_voto + 1 where id = ?";
+    public void atualizaVoto(int numero){
+        String sql = "update candidato set qtd_voto = qtd_voto + 1 where numero = ?";
         
         try {
             PreparedStatement stat = this.conn.prepareStatement(sql);
-            stat.setInt(1, candidato.getId());
+            stat.setInt(1, numero);
             
             stat.execute();
             stat.close();
@@ -39,21 +39,21 @@ public class CandidatoDao implements CandidatoDaoIT{
     }
     
     @Override
-    public Candidato buscarCandidato(int id){
-        String sql = "select * from candidato where id = ?";
+    public Candidato buscarCandidato(int numero){
+        String sql = "select * from candidato where numero = ?";
         Candidato candidato = new Candidato();
         
         try {
             PreparedStatement stat = this.conn.prepareStatement(sql);
-            stat.setInt(1, id);
+            stat.setInt(1, numero);
             
             ResultSet rs = stat.executeQuery();
             rs.next();
             
-            candidato.setId((rs.getInt(1)));
-            candidato.setNome(rs.getString(2));
-            candidato.setNumero(rs.getInt(3));
-            candidato.setQtdVotos(rs.getInt(4));
+            
+            candidato.setNome(rs.getString(1));
+            candidato.setNumero(rs.getInt(2));
+            candidato.setQtdVotos(rs.getInt(3));
             
             stat.close();
             
@@ -74,10 +74,10 @@ public class CandidatoDao implements CandidatoDaoIT{
             
             while(rs.next()){
                 Candidato candidato = new Candidato();
-                candidato.setId(rs.getInt(1));
-                candidato.setNome(rs.getString(2));
-                candidato.setNumero(rs.getInt(3));
-                candidato.setQtdVotos(rs.getInt(4));
+                
+                candidato.setNome(rs.getString(1));
+                candidato.setNumero(rs.getInt(2));
+                candidato.setQtdVotos(rs.getInt(3));
                 
                 candidatos.add(candidato);
             }
