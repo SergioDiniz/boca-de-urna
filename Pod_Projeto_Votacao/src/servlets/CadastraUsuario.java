@@ -1,7 +1,9 @@
 package servlets;
 
 import classes.User;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,13 +41,26 @@ public class CadastraUsuario extends HttpServlet{
         
         try {
             dados = ConvertUser.ObjXml(user);
-            response.sendRedirect("index.jsp");
+            //response.sendRedirect("index.jsp");
         } catch (JAXBException ex) {
             Logger.getLogger(CadastraUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         socket.getOutputStream().write(dados);
         socket.getOutputStream().flush();
+        
+        InputStream input = socket.getInputStream();
+        ByteArrayOutputStream temp = new ByteArrayOutputStream();
+        byte[] b = new byte[1];
+        
+        while(input.read(b) != -1){
+            temp.write(b);
+        }
+        
+        String mensagem = temp.toString();
+        
+        response.getWriter().println(mensagem);
+                
         socket.getOutputStream().close();
         socket.close();
         

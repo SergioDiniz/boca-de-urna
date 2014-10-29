@@ -8,6 +8,7 @@ import gerenciador.GerenciadorUsuario;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
@@ -24,38 +25,23 @@ public class Servidor {
     public static void main(String [] args) throws IOException, JAXBException, NoSuchAlgorithmException, SQLException{
         
         ServerSocket server = new ServerSocket(10001);
-        System.out.println("Servidor Rodando na Porta: " +server.getLocalPort());
-        System.out.println("Host: " +server.getInetAddress().toString());
-        System.out.println("Aguardando Conexão dos Clientes...");
-        
+        System.out.println("Aguardando Conexao...");
         Socket socket = server.accept();
+        System.out.println("Conexao Realizada...");
         
-        InputStream input = socket.getInputStream();
+        InputStream in = socket.getInputStream();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] b = new byte[1024];
         
-        ByteArrayOutputStream temp = new ByteArrayOutputStream();
-        byte[] dados = new byte[1];
+        in.read(b);
+        out.write(b);
         
-        while(input.read(dados) != -1){
-            temp.write(dados);
-        }
-        
-        User user = (User) ConvertUser.XmlObj(temp.toByteArray());
-        
-        GerenciadorUsuario gerenciador = new GerenciadorUsuario();
-        user = gerenciador.buscarUsuairo(user.getEmail());
-        
-        if(user != null){
-        
-            System.out.println("Status: " +user.getEmail());
-            System.out.println("Token: " +user.getToken());
-            System.out.println("Email: " +user.getEmail());
-        }
-        
-        System.out.println(temp.toString());
-        
-        socket.getOutputStream().write("Dados Recebidos!".getBytes());
-        socket.getOutputStream().flush();
+        socket.getOutputStream().write("Cadastro Efetuado com Sucesso...".getBytes());
         socket.getOutputStream().close();
+        
+        out.writeTo(System.out);
+        out.close();
+        in.close();
         socket.close();
         server.close();
     }

@@ -36,12 +36,14 @@ public class Login extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, UnsupportedEncodingException{
         
         //Socket socket = new Socket("192.168.0.109", 10001);
-        Socket socket = new Socket("localhost", 10001);
-        byte[] dados = null;
+        //Socket socket = new Socket("localhost", 10001);
+        //byte[] dados = null;
         
         User usuario = new User();
         usuario.setEmail(request.getParameter("email"));
         
+        response.getWriter().print("Email: " +usuario.getEmail());
+        /*
         try{
             dados = ConvertUser.ObjXml(usuario);
         } catch (JAXBException ex) {
@@ -52,29 +54,15 @@ public class Login extends HttpServlet{
         socket.getOutputStream().flush();
         
         InputStream input = socket.getInputStream();
-        response.getWriter().print(input);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] b = new byte[1024];
         
-        ByteArrayOutputStream temp = new ByteArrayOutputStream();
-        byte[] b = new byte[1];
-        /*
-        while(input.read(b) != -1){
-            temp.write(b);
-        }
+        input.read(b);
+        out.write(b);
         
-        response.getWriter().print(temp);
-        */
-        /*
-        if(usuario != null){
-            HttpSession session = request.getSession(true);
-            session.setAttribute("usuario", usuario);
-            response.sendRedirect("votacao.jsp");
-            
-        }else{
-            response.sendRedirect("index.jsp");
-        }
-        */
+        response.getWriter().print(out);
         
         socket.getOutputStream().close();
-        socket.close();
+        socket.close();*/
     }
 }
