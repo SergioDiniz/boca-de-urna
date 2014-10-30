@@ -1,6 +1,6 @@
 package dao;
 
-import classes.Candidato;
+import classes.Candidates;
 import conexaoBanco.ConnectionDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,9 +39,9 @@ public class CandidatoDao implements CandidatoDaoIT{
     }
     
     @Override
-    public Candidato buscarCandidato(int numero){
+    public Candidates buscarCandidato(int numero){
         String sql = "select * from candidato where numero = ?";
-        Candidato candidato = new Candidato();
+        Candidates candidato = new Candidates();
         
         try {
             PreparedStatement stat = this.conn.prepareStatement(sql);
@@ -50,10 +50,9 @@ public class CandidatoDao implements CandidatoDaoIT{
             ResultSet rs = stat.executeQuery();
             rs.next();
             
-            
             candidato.setNome(rs.getString(1));
-            candidato.setNumero(rs.getInt(2));
-            candidato.setQtdVotos(rs.getInt(3));
+            candidato.setCode(rs.getString(2));
+            candidato.setQuantity(rs.getString(3));
             
             stat.close();
             
@@ -64,20 +63,20 @@ public class CandidatoDao implements CandidatoDaoIT{
     }
     
     @Override
-    public ArrayList<Candidato> buscarCandidato() {
+    public ArrayList<Candidates> buscarCandidato() {
         String sql = "select * from candidato";
-        ArrayList<Candidato> candidatos = new ArrayList();
+        ArrayList<Candidates> candidatos = new ArrayList();
         
         try {
             PreparedStatement stat = this.conn.prepareStatement(sql);
             ResultSet rs = stat.executeQuery();
             
             while(rs.next()){
-                Candidato candidato = new Candidato();
+                Candidates candidato = new Candidates();
                 
                 candidato.setNome(rs.getString(1));
-                candidato.setNumero(rs.getInt(2));
-                candidato.setQtdVotos(rs.getInt(3));
+                candidato.setCode(rs.getString(2));
+                candidato.setQuantity(rs.getString(3));
                 
                 candidatos.add(candidato);
             }

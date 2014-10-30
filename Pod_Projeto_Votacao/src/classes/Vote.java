@@ -11,15 +11,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Vote {
 
     private String user;
-    private int candidate;
+    private String value;
     
     public Vote(){
     
     }
     
-    public Vote(String user, int candidate){
+    public Vote(String user, String value){
         this.user = user;
-        this.candidate = candidate;
+        this.value = value;
     }
 
     public String getUser() {
@@ -30,11 +30,11 @@ public class Vote {
         this.user = user;
     }
     
-    public int getCandidate() {
-        return candidate;
+    public String getvalue() {
+        return value;
     }
 
-    public void setCandidate(int candidate) {
-        this.candidate = candidate;
+    public void setvalue(String value) {
+        this.value = value;
     }
 }

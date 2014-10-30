@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.JAXBException;
-import servidor.AcessStatusXml;
-import servidor.ConvertUser;
+import xmlConvert.AcessStatusXml;
+import xmlConvert.ConvertUser;
 
 /**
  *
@@ -35,16 +35,13 @@ public class Login extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, UnsupportedEncodingException{
         
-        //Socket socket = new Socket("192.168.0.109", 10001);
-        //Socket socket = new Socket("localhost", 10001);
-        //byte[] dados = null;
+        Socket socket = new Socket("localhost", 10001);
         
         User usuario = new User();
         usuario.setEmail(request.getParameter("email"));
         
-        response.getWriter().print("Email: " +usuario.getEmail());
-        /*
-        try{
+        byte[] dados = null;
+        try {
             dados = ConvertUser.ObjXml(usuario);
         } catch (JAXBException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,15 +51,17 @@ public class Login extends HttpServlet{
         socket.getOutputStream().flush();
         
         InputStream input = socket.getInputStream();
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        byte[] b = new byte[1024];
+        ByteArrayOutputStream temp = new ByteArrayOutputStream();
         
-        input.read(b);
-        out.write(b);
+        byte[] b = new byte[1];
         
-        response.getWriter().print(out);
+        while(input.read(b) != -1){
+            temp.write(b);
+        }
         
-        socket.getOutputStream().close();
-        socket.close();*/
+        String mensagem = temp.toString();
+        response.getWriter().print(mensagem);
+        
+        
     }
 }

@@ -1,6 +1,6 @@
 package gerenciador;
 
-import classes.Candidato;
+import classes.Candidates;
 import dao.CandidatoDao;
 import dao.CandidatoDaoIT;
 import java.sql.SQLException;
@@ -18,14 +18,14 @@ public class GerenciadorCandidato {
         cand.atualizaVoto(numero);
     }
     
-    public Candidato buscarCandidato(int numero) throws SQLException{
+    public Candidates buscarCandidato(int numero) throws SQLException{
         CandidatoDaoIT cand = new CandidatoDao();
         return cand.buscarCandidato(numero);
     }
     
-    public ArrayList<Candidato> candidatos() throws SQLException{
+    public ArrayList<Candidates> candidatos() throws SQLException{
         CandidatoDaoIT cand = new CandidatoDao();
-        ArrayList<Candidato> candidatos = new ArrayList();
+        ArrayList<Candidates> candidatos = new ArrayList();
         
         candidatos = cand.buscarCandidato();
         

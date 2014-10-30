@@ -1,13 +1,10 @@
 package teste;
 
 import classes.User;
-import gerenciador.GerenciadorCandidato;
 import gerenciador.GerenciadorUsuario;
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import javax.xml.bind.JAXBException;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -16,10 +13,12 @@ import org.xml.sax.SAXException;
 
 public class App {
 
-    public static void main(String [] args) throws JAXBException, SAXException, IOException, NoSuchAlgorithmException, SQLException{
-     GerenciadorUsuario gu = new GerenciadorUsuario();
-     
-     gu.addUsuario("fferreira913@gmail.com");
+    public static void main(String [] args) throws UnsupportedEncodingException, SQLException, NoSuchAlgorithmException{
+        
+       GerenciadorUsuario gerenciador = new GerenciadorUsuario();
+       User user = gerenciador.buscarUsuairo("fatinha.sg@hotmail.com");
+       
+       System.out.println(user.getToken());
+       System.out.println(user.getStatus());
     }
-
 }

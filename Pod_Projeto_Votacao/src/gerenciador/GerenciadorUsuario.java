@@ -17,7 +17,7 @@ import java.sql.SQLException;
 
 public class GerenciadorUsuario {
 
-    public void addUsuario(String email) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+    public boolean addUsuario(String email) throws NoSuchAlgorithmException, UnsupportedEncodingException{
         User usuario = new User();
         usuario.setToken(Token.hashMDK5(email));
         usuario.setStatus("F");
@@ -26,6 +26,8 @@ public class GerenciadorUsuario {
         FactoryDaoIT factory = FactoryDao.createFactory();
         UsuarioDaoIT usuer = factory.criarUsuario();
         usuer.persisteUsuario(usuario);
+        
+        return true;
     }
     
     public User buscarUsuairo(String email) throws SQLException, NoSuchAlgorithmException, UnsupportedEncodingException{

@@ -25,13 +25,12 @@ public class UsuarioDao implements UsuarioDaoIT {
     
     @Override
     public void persisteUsuario(User usuario) {
-       String sql = "insert into Usuario(email, token, status) values(?, ?, ?)";
+       String sql = "insert into Usuario(token, status) values(?, ?)";
        
         try {
             PreparedStatement stat = this.conn.prepareCall(sql);
-            stat.setString(1, usuario.getEmail());
-            stat.setString(2, usuario.getToken());
-            stat.setString(3, usuario.getStatus());
+            stat.setString(1, usuario.getToken());
+            stat.setString(2, usuario.getStatus());
             
             stat.execute();
             stat.close();
@@ -53,9 +52,8 @@ public class UsuarioDao implements UsuarioDaoIT {
             
             if(rs.next() == true){
                 
-                usuario.setEmail(rs.getString(1));
-                usuario.setToken(rs.getString(2));
-                usuario.setStatus(rs.getString(3));
+                usuario.setToken(rs.getString(1));
+                usuario.setStatus(rs.getString(2));
                 
             }else{
                 usuario = null;

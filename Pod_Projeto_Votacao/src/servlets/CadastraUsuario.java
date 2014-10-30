@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
-import servidor.ConvertUser;
+import xmlConvert.ConvertUser;
 
 /**
  *
@@ -31,7 +31,6 @@ public class CadastraUsuario extends HttpServlet{
             UnsupportedEncodingException{
         
         Socket socket = new Socket("localhost", 10001);
-        
         String email = request.getParameter("email");
         
         User user = new User();
@@ -41,7 +40,6 @@ public class CadastraUsuario extends HttpServlet{
         
         try {
             dados = ConvertUser.ObjXml(user);
-            //response.sendRedirect("index.jsp");
         } catch (JAXBException ex) {
             Logger.getLogger(CadastraUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,10 +57,6 @@ public class CadastraUsuario extends HttpServlet{
         
         String mensagem = temp.toString();
         
-        response.getWriter().println(mensagem);
-                
-        socket.getOutputStream().close();
-        socket.close();
-        
+        response.getWriter().print(mensagem);
     }
 }

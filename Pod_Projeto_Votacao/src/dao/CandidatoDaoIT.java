@@ -1,6 +1,6 @@
 package dao;
 
-import classes.Candidato;
+import classes.Candidates;
 import java.util.ArrayList;
 
 /**
@@ -12,8 +12,8 @@ public interface CandidatoDaoIT {
 
     public void atualizaVoto(int numero);
     
-    public ArrayList<Candidato> buscarCandidato();
+    public ArrayList<Candidates> buscarCandidato();
     
-    public Candidato buscarCandidato(int id);
+    public Candidates buscarCandidato(int id);
     
 }

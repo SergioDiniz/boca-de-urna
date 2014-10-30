@@ -1,6 +1,6 @@
-package servidor;
+package xmlConvert;
 
-import classes.User;
+import classes.Vote;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBContext;
@@ -13,25 +13,25 @@ import javax.xml.bind.Unmarshaller;
  * @author Fatinha de Sousa
  */
 
-public class ConvertUser {
+public class VoteXmlConvert {
 
-    public static byte[] ObjXml(User usuario) throws JAXBException{
+    public static byte[] ObjXml(Vote vote) throws JAXBException{
         
-        JAXBContext cvt = JAXBContext.newInstance(User.class);
+        JAXBContext cvt = JAXBContext.newInstance(Vote.class);
         Marshaller marshaller = cvt.createMarshaller();
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         
-        marshaller.marshal(usuario, output);
+        marshaller.marshal(vote, output);
         
         return output.toByteArray();
     }
     
-    public static User XmlObj(byte[] objeto) throws JAXBException{
-        JAXBContext cvt = JAXBContext.newInstance(User.class);
+    public static Vote XmlObj(byte[] objeto) throws JAXBException{
+        JAXBContext cvt = JAXBContext.newInstance(Vote.class);
         Unmarshaller unmarshaller = cvt.createUnmarshaller();
         
-        User usuario = (User) unmarshaller.unmarshal(new ByteArrayInputStream(objeto));
+        Vote vote = (Vote) unmarshaller.unmarshal(new ByteArrayInputStream(objeto));
         
-        return usuario;
+        return vote;
     }
 }
