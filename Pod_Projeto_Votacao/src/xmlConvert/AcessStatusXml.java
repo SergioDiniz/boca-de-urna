@@ -1,6 +1,6 @@
 package xmlConvert;
 
-import classes.AcessStatus;
+import ServerModule.AcessStatus;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBContext;

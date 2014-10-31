@@ -1,7 +1,7 @@
 package teste;
 
-import classes.User;
-import gerenciador.GerenciadorUsuario;
+import DataModule.GerenciadorCandidato;
+import ServerModule.User;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -15,10 +15,7 @@ public class App {
 
     public static void main(String [] args) throws UnsupportedEncodingException, SQLException, NoSuchAlgorithmException{
         
-       GerenciadorUsuario gerenciador = new GerenciadorUsuario();
-       User user = gerenciador.buscarUsuairo("fatinha.sg@hotmail.com");
-       
-       System.out.println(user.getToken());
-       System.out.println(user.getStatus());
+        GerenciadorCandidato cand = new GerenciadorCandidato();
+        cand.computaVoto("13");
     }
 }

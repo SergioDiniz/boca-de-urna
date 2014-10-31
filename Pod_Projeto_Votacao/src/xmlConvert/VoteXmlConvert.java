@@ -1,6 +1,6 @@
 package xmlConvert;
 
-import classes.Vote;
+import ServerModule.Vote;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBContext;

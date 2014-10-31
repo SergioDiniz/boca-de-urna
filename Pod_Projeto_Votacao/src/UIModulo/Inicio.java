@@ -1,7 +1,8 @@
 package UIModulo;
 
-import classes.User;
-import funcoes.StringByte;
+import ServerModule.AcessStatus;
+import ServerModule.User;
+import xmlConvert.StringByte;
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBException;
-import sun.io.Converters;
+import xmlConvert.AcessStatusXml;
 import xmlConvert.ConvertUser;
 
 /*
@@ -186,15 +187,15 @@ public class Inicio extends javax.swing.JFrame {
         }
         
         }else{
-                JOptionPane.showMessageDialog(null, "Email invalido!");
+            JOptionPane.showMessageDialog(null, "Email invalido!");
         }
         
+            jTEmailCadastro.setText("");
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
     private void jBEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEntrarActionPerformed
-        
         try {
-            Socket  socket = new Socket("localhost", 10001);
+            Socket socket = new Socket("localhost", 10001);
             
             String emailEntrar = jTEmailEntrar.getText();
             
@@ -211,24 +212,52 @@ public class Inicio extends javax.swing.JFrame {
             
             InputStream input = socket.getInputStream();
             ByteArrayOutputStream temp = new ByteArrayOutputStream();
-            byte[] msg = new byte[1];
-            
-            while(input.read(msg) != -1){
+                byte[] msg = new byte[1024];
+
+                input.read(msg);
                 temp.write(msg);
-            }
-        
-            String mensagem = temp.toString();
-            JOptionPane.showMessageDialog(null, mensagem);
 
-            Votacao votacao = new Votacao(this, true);
-            votacao.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-            votacao.setResizable(false);
-            votacao.setLocationRelativeTo(null);
-            votacao.setVisible(true);
+                int aux = 0;
+                for(int i = 0; i < msg.length; i++ ){
+                    if(msg[i] != 0){
+                        aux++;
+                    }
+                }
 
-        } catch (IOException ex) {
-            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JAXBException ex) {
+                temp.close();
+
+                byte[] dad = new byte[aux];
+
+                for(int i = 0; i < aux; i++ ){
+                    dad[i] = msg[i];
+                }
+                
+                System.out.println(dad.length);
+                
+                if(dad.length > 25){
+                   
+                    AcessStatus acess = (AcessStatus) AcessStatusXml.XmlObj(dad);
+
+                    Votacao votacao = new Votacao(acess);
+                    votacao.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                    votacao.setResizable(false);
+                    votacao.setLocationRelativeTo(null);
+                    votacao.setVisible(true);
+                }else{
+                    
+                    InputStream in = socket.getInputStream();
+                    ByteArrayOutputStream tp = new ByteArrayOutputStream();
+                    byte[] ms = new byte[1];
+
+                    while(in.read(ms) != -1){
+                        tp.write(ms);
+                    }
+
+                String mensagem = tp.toString();
+                JOptionPane.showMessageDialog(null, "Email Invalido! ");
+                }
+                
+        } catch (    IOException | JAXBException ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jBEntrarActionPerformed

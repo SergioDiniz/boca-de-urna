@@ -1,6 +1,6 @@
 package xmlConvert;
 
-import classes.User;
+import ServerModule.User;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBContext;
